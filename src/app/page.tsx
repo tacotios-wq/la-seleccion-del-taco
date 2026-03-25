@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Manifesto from "@/components/Manifesto";
 import TournamentSection from "@/components/torneo/TournamentSection";
 import DraftSection from "@/components/draft/DraftSection";
+import PassportSection from "@/components/pasaporte/PassportSection";
 import TaqueriaList from "@/components/TaqueriaList";
 import TeamSection from "@/components/equipo/TeamSection";
 import SignupSection from "@/components/SignupSection";
@@ -35,6 +36,11 @@ export default function Home() {
 
         {/* LA QUINIELA */}
         <DraftSection />
+
+        <Divider />
+
+        {/* PASAPORTE */}
+        <PassportSection />
 
         <Divider />
 

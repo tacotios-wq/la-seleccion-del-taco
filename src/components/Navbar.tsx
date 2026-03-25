@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 const NAV_LINKS = [
   { label: "Torneo", href: "#torneo" },
   { label: "Quiniela", href: "#draft" },
+  { label: "Pasaporte", href: "#pasaporte" },
   { label: "Taquerias", href: "#taquerias" },
-  { label: "Equipo", href: "#equipo" },
 ];
 
 export default function Navbar() {
