@@ -20,7 +20,7 @@ export default function Hero() {
 
         {/* Sub */}
         <p className="text-[14px] font-normal text-text-muted max-w-[460px] mx-auto mt-6 mb-10 leading-relaxed">
-          32 taquerias. Eliminatoria directa. Tu voto decide quien avanza. Solo queda una.
+          16 taquerias. 3 ciudades. Eliminatoria directa. Tu voto decide quien avanza.
         </p>
 
         {/* CTAs */}

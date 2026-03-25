@@ -15,7 +15,7 @@ export default function TaqueriaList() {
             Las taquerias
           </h2>
           <p className="text-text-body max-w-[500px] mx-auto text-[14px] leading-relaxed">
-            8 de 32 taquerias confirmadas. Seleccionadas una a una. Sin filtros ni favores.
+            16 taquerias seleccionadas. Una a una. Sin filtros ni favores.
           </p>
         </div>
 
@@ -98,7 +98,7 @@ export default function TaqueriaList() {
         </div>
 
         <p className="text-center text-[12px] text-text-muted mt-8">
-          + 24 taquerias por confirmar en las proximas semanas
+          6 CDMX · 6 GDL · 4 MTY
         </p>
       </div>
     </section>

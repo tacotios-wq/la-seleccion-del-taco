@@ -4,10 +4,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "La Seleccion del Taco — Mexico vota por sus mejores tacos",
   description:
-    "32 taquerias compiten en eliminatoria directa. Vota, colecciona sellos y descubre los mejores tacos de Mexico.",
+    "16 taquerias compiten en eliminatoria directa. Vota, colecciona sellos y descubre los mejores tacos de Mexico.",
   openGraph: {
     title: "La Seleccion del Taco",
-    description: "32 taquerias. 1 campeon. Tu decides.",
+    description: "16 taquerias. 1 campeon. Tu decides.",
     type: "website",
     locale: "es_MX",
   },

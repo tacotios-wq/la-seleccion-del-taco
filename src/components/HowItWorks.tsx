@@ -14,7 +14,7 @@ const STEPS = [
   {
     num: "03",
     title: "Colecciona",
-    desc: "Cada visita te da un sello en tu pasaporte taquero. Completa la coleccion de los 32 participantes.",
+    desc: "Cada visita te da un sello en tu pasaporte taquero. Completa la coleccion de los 16 participantes.",
   },
   {
     num: "04",
