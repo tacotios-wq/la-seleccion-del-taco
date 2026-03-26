@@ -1,106 +1,165 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { supabase } from "@/lib/supabase";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
-const STORAGE_KEY = "lsdt_user";
-
-export interface User {
+export interface Profile {
   id: string;
   nombre: string;
   email: string;
   telefono: string;
-  provider: "email" | "google" | "apple";
-  createdAt: string;
-  stamps: StampRecord[];
+  avatar_url: string;
 }
 
 export interface StampRecord {
-  taqueriaId: string;
-  photoUrl: string;
-  date: string;
+  taqueria_id: string;
+  photo_url: string;
+  created_at: string;
   verified: boolean;
 }
 
-function generateId() {
-  return Math.random().toString(36).substring(2, 10);
-}
-
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [stamps, setStamps] = useState<StampRecord[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Load session on mount
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) setUser(JSON.parse(stored));
-    } catch {
-      // ignore
-    }
-    setLoading(false);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        loadProfile(session.user.id);
+        loadStamps(session.user.id);
+      }
+      setLoading(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        loadProfile(session.user.id);
+        loadStamps(session.user.id);
+      } else {
+        setProfile(null);
+        setStamps([]);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const save = (u: User) => {
-    setUser(u);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
-  };
+  async function loadProfile(userId: string) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", userId)
+      .single();
+    if (data) setProfile(data as Profile);
+  }
+
+  async function loadStamps(userId: string) {
+    const { data } = await supabase
+      .from("stamps")
+      .select("*")
+      .eq("user_id", userId);
+    if (data) setStamps(data as StampRecord[]);
+  }
 
   const register = useCallback(
-    (data: { nombre: string; email: string; telefono: string; password: string }) => {
-      const newUser: User = {
-        id: generateId(),
-        nombre: data.nombre,
+    async (data: { nombre: string; email: string; telefono: string; password: string }) => {
+      const { data: authData, error } = await supabase.auth.signUp({
         email: data.email,
-        telefono: data.telefono,
-        provider: "email",
-        createdAt: new Date().toISOString(),
-        stamps: [],
-      };
-      save(newUser);
-      return newUser;
+        password: data.password,
+        options: {
+          data: {
+            nombre: data.nombre,
+            telefono: data.telefono,
+          },
+        },
+      });
+
+      if (error) throw error;
+
+      // Update telefono in profile (trigger creates profile automatically)
+      if (authData.user) {
+        await supabase
+          .from("profiles")
+          .update({ telefono: data.telefono })
+          .eq("id", authData.user.id);
+      }
+
+      return authData.user;
     },
     []
   );
 
-  const loginWithProvider = useCallback((provider: "google" | "apple") => {
-    // Simulado — Supabase lo reemplaza después
-    const newUser: User = {
-      id: generateId(),
-      nombre: provider === "google" ? "Usuario Google" : "Usuario Apple",
-      email: `${provider}@demo.com`,
-      telefono: "",
+  const login = useCallback(
+    async (email: string, password: string) => {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) throw error;
+      return data.user;
+    },
+    []
+  );
+
+  const loginWithProvider = useCallback(async (provider: "google" | "apple") => {
+    const { error } = await supabase.auth.signInWithOAuth({
       provider,
-      createdAt: new Date().toISOString(),
-      stamps: [],
-    };
-    save(newUser);
-    return newUser;
+      options: {
+        redirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
+      },
+    });
+    if (error) throw error;
   }, []);
 
   const addStamp = useCallback(
-    (taqueriaId: string, photoUrl: string) => {
+    async (taqueriaId: string, photoUrl: string) => {
       if (!user) return;
-      if (user.stamps.some((s) => s.taqueriaId === taqueriaId)) return;
-      const updated = {
-        ...user,
-        stamps: [
-          ...user.stamps,
-          { taqueriaId, photoUrl, date: new Date().toISOString(), verified: false },
-        ],
-      };
-      save(updated);
+      if (stamps.some((s) => s.taqueria_id === taqueriaId)) return;
+
+      const { error } = await supabase.from("stamps").insert({
+        user_id: user.id,
+        taqueria_id: taqueriaId,
+        photo_url: photoUrl,
+      });
+
+      if (!error) {
+        setStamps((prev) => [
+          ...prev,
+          { taqueria_id: taqueriaId, photo_url: photoUrl, created_at: new Date().toISOString(), verified: false },
+        ]);
+      }
     },
-    [user]
+    [user, stamps]
   );
 
   const hasStamp = useCallback(
-    (taqueriaId: string) => user?.stamps.some((s) => s.taqueriaId === taqueriaId) ?? false,
-    [user]
+    (taqueriaId: string) => stamps.some((s) => s.taqueria_id === taqueriaId),
+    [stamps]
   );
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    await supabase.auth.signOut();
     setUser(null);
-    localStorage.removeItem(STORAGE_KEY);
+    setProfile(null);
+    setStamps([]);
   }, []);
 
-  return { user, loading, register, loginWithProvider, addStamp, hasStamp, logout };
+  return {
+    user,
+    profile,
+    stamps,
+    loading,
+    register,
+    login,
+    loginWithProvider,
+    addStamp,
+    hasStamp,
+    logout,
+  };
 }

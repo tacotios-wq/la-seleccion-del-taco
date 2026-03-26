@@ -40,7 +40,7 @@ export default function TaqueriaList() {
                   </div>
 
                   {/* Quote */}
-                  <div className="bg-[#CC000006] border-l-[3px] border-red rounded-r-[6px] py-3.5 px-4 my-5">
+                  <div className="bg-[#0077C806] border-l-[3px] border-red rounded-r-[6px] py-3.5 px-4 my-5">
                     <p className="text-[13px] text-text-body leading-relaxed">
                       {t.historia.length > 200 ? t.historia.slice(0, 200) + "..." : t.historia}
                     </p>

@@ -6,48 +6,65 @@ import { useAuth } from "@/hooks/useAuth";
 type Mode = "login" | "register";
 
 export default function AuthModal({ onClose }: { onClose: () => void }) {
-  const { register, loginWithProvider } = useAuth();
+  const { register, login, loginWithProvider } = useAuth();
   const [mode, setMode] = useState<Mode>("register");
   const [form, setForm] = useState({ nombre: "", email: "", telefono: "", password: "" });
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    setSubmitting(true);
 
-    if (mode === "register") {
-      if (!form.nombre || !form.email || !form.telefono || !form.password) {
-        setError("Todos los campos son obligatorios");
-        return;
+    try {
+      if (mode === "register") {
+        if (!form.nombre || !form.email || !form.telefono || !form.password) {
+          setError("Todos los campos son obligatorios");
+          setSubmitting(false);
+          return;
+        }
+        if (form.password.length < 6) {
+          setError("La contrasena debe tener al menos 6 caracteres");
+          setSubmitting(false);
+          return;
+        }
+        await register(form);
+        onClose();
+      } else {
+        if (!form.email || !form.password) {
+          setError("Email y contrasena son obligatorios");
+          setSubmitting(false);
+          return;
+        }
+        await login(form.email, form.password);
+        onClose();
       }
-      if (form.password.length < 6) {
-        setError("La contrasena debe tener al menos 6 caracteres");
-        return;
-      }
-      register(form);
-      onClose();
-    } else {
-      // Login simplified for MVP
-      if (!form.email || !form.password) {
-        setError("Email y contrasena son obligatorios");
-        return;
-      }
-      register({ ...form, nombre: form.email.split("@")[0], telefono: "" });
-      onClose();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Error al procesar";
+      setError(message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function handleProvider(provider: "google" | "apple") {
+    try {
+      await loginWithProvider(provider);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Error con el proveedor";
+      setError(message);
     }
   }
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-[8px]"
         onClick={onClose}
       />
 
-      {/* Modal */}
-      <div className="relative bg-white rounded-[12px] w-full max-w-[400px] p-8 shadow-[0_8px_40px_rgba(0,0,0,0.15)]">
-        {/* Close */}
+      <div className="relative bg-white rounded-[12px] w-full max-w-[400px] p-8 shadow-[0_8px_40px_rgba(0,0,0,0.15)] max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 w-7 h-7 rounded-full bg-bg flex items-center justify-center text-text-muted hover:text-text transition-colors text-[14px]"
@@ -55,7 +72,6 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
           &times;
         </button>
 
-        {/* Header */}
         <div className="text-center mb-6">
           <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-2">
             La Seleccion del Taco
@@ -73,7 +89,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
         {/* Social buttons */}
         <div className="space-y-2 mb-5">
           <button
-            onClick={() => { loginWithProvider("google"); onClose(); }}
+            onClick={() => handleProvider("google")}
             className="w-full flex items-center justify-center gap-2 py-3 border border-border-strong rounded-full text-[12px] font-semibold text-text hover:bg-bg transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -85,7 +101,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
             Continuar con Google
           </button>
           <button
-            onClick={() => { loginWithProvider("apple"); onClose(); }}
+            onClick={() => handleProvider("apple")}
             className="w-full flex items-center justify-center gap-2 py-3 border border-border-strong rounded-full text-[12px] font-semibold text-text hover:bg-bg transition-colors"
           >
             <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor">
@@ -95,14 +111,12 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
           </button>
         </div>
 
-        {/* Divider */}
         <div className="flex items-center gap-3 mb-5">
           <div className="flex-1 h-px bg-border" />
           <span className="text-[10px] text-text-muted tracking-[1px] uppercase">o con email</span>
           <div className="flex-1 h-px bg-border" />
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-3">
           {mode === "register" && (
             <div>
@@ -166,17 +180,17 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
 
           <button
             type="submit"
-            className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-red text-white rounded-full hover:bg-red/90 transition-colors mt-2"
+            disabled={submitting}
+            className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-red text-white rounded-full hover:bg-red/90 transition-colors mt-2 disabled:opacity-60"
           >
-            {mode === "register" ? "Crear cuenta" : "Entrar"}
+            {submitting ? "Procesando..." : mode === "register" ? "Crear cuenta" : "Entrar"}
           </button>
         </form>
 
-        {/* Toggle mode */}
         <p className="text-center text-[12px] text-text-muted mt-5">
           {mode === "register" ? "Ya tienes cuenta?" : "No tienes cuenta?"}{" "}
           <button
-            onClick={() => setMode(mode === "register" ? "login" : "register")}
+            onClick={() => { setMode(mode === "register" ? "login" : "register"); setError(""); }}
             className="text-red font-semibold hover:underline"
           >
             {mode === "register" ? "Inicia sesion" : "Registrate"}

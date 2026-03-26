@@ -133,7 +133,7 @@ export default function MatchupCard({ matchup, taqueria1, taqueria2, featured = 
       {/* Ronda badge */}
       {featured && (
         <div className="text-center mb-6">
-          <span className="inline-block bg-[#CC000006] text-red text-[10px] font-bold tracking-[4px] uppercase py-2 px-5 rounded-full">
+          <span className="inline-block bg-[#0077C806] text-red text-[10px] font-bold tracking-[4px] uppercase py-2 px-5 rounded-full">
             {matchup.ronda === "octavos" && "Octavos de final"}
             {matchup.ronda === "cuartos" && "Cuartos de final"}
             {matchup.ronda === "semis" && "Semifinal"}

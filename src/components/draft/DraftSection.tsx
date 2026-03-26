@@ -36,7 +36,7 @@ export default function DraftSection() {
           </AnimateOnScroll>
           <AnimateOnScroll delay={0.2}>
             <p className="text-text-body max-w-[460px] mx-auto text-[14px] leading-relaxed">
-              Elige las 5 taquerias que crees que llegaran mas lejos. Comparte tu quiniela y compite con tus amigos.
+              Elige 1 campeon por ciudad. Comparte tu quiniela y compite con tus amigos.
             </p>
           </AnimateOnScroll>
         </div>
@@ -53,8 +53,8 @@ export default function DraftSection() {
               </p>
             </div>
 
-            {/* 5 slots */}
-            <div className="grid grid-cols-5 gap-3 mb-5">
+            {/* 3 slots — 1 per city */}
+            <div className="grid grid-cols-3 gap-3 mb-5">
               {Array.from({ length: max }, (_, i) => {
                 const pick = pickedTaquerias[i];
                 return (
@@ -62,7 +62,7 @@ export default function DraftSection() {
                     key={i}
                     className={`aspect-square rounded-[8px] flex flex-col items-center justify-center text-center p-2 transition-all duration-300 ${
                       pick
-                        ? "bg-[#CC000006] border-2 border-red/20"
+                        ? "bg-[#0077C806] border-2 border-red/20"
                         : "bg-bg border-2 border-dashed border-border-strong"
                     }`}
                   >
@@ -150,7 +150,7 @@ export default function DraftSection() {
                       <p className="text-[11px] text-text-muted mt-0.5">
                         {t.especialidad} · {t.ubicacion.ciudad}
                       </p>
-                      {t.edad && (
+                      {t.edad > 0 && (
                         <p className="text-[10px] text-text-muted/60 mt-0.5">
                           {t.edad} anos
                         </p>
@@ -160,7 +160,7 @@ export default function DraftSection() {
                     {/* Region badge */}
                     <span className={`text-[9px] font-bold tracking-[1px] uppercase px-2 py-0.5 rounded-full shrink-0 ${
                       t.region === "cdmx"
-                        ? "bg-[#CC000008] text-red"
+                        ? "bg-[#0077C808] text-red"
                         : t.region === "gdl"
                         ? "bg-[#00684708] text-green"
                         : "bg-[#C4A26508] text-gold"

@@ -17,10 +17,10 @@ function regionLabel(region: string) {
 
 export default function PassportSection() {
   const taquerias = getRealTaquerias();
-  const { user, hasStamp, addStamp, logout } = useAuth();
+  const { user, profile, stamps, hasStamp, addStamp, logout } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
   const [stampTarget, setStampTarget] = useState<Taqueria | null>(null);
-  const stampCount = user?.stamps.length ?? 0;
+  const stampCount = stamps.length;
 
   function handleStampClick(t: Taqueria) {
     if (!user) {
@@ -60,8 +60,8 @@ export default function PassportSection() {
               <div className="bg-white rounded-[10px] shadow-[0_1px_4px_rgba(0,0,0,0.05),0_8px_24px_rgba(0,0,0,0.03)] p-6 sm:p-8 mb-8">
                 <div className="flex items-center justify-between mb-5">
                   <div>
-                    <p className="text-[15px] font-semibold text-text">{user.nombre}</p>
-                    <p className="text-[11px] text-text-muted">{user.email}</p>
+                    <p className="text-[15px] font-semibold text-text">{profile?.nombre || "Usuario"}</p>
+                    <p className="text-[11px] text-text-muted">{profile?.email || user?.email}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-[28px] font-bold text-red leading-none">{stampCount}</p>
@@ -118,7 +118,7 @@ export default function PassportSection() {
           <div className="space-y-2">
             {taquerias.map((t, i) => {
               const stamped = user ? hasStamp(t.id) : false;
-              const stampData = user?.stamps.find((s) => s.taqueriaId === t.id);
+              const stampData = stamps.find((s) => s.taqueria_id === t.id);
 
               return (
                 <AnimateOnScroll key={t.id} delay={i * 0.03}>
@@ -136,8 +136,8 @@ export default function PassportSection() {
                         ? "border-2 border-green"
                         : "border-2 border-dashed border-border-strong"
                     }`}>
-                      {stamped && stampData?.photoUrl ? (
-                        <img src={stampData.photoUrl} alt="" className="w-full h-full object-cover" />
+                      {stamped && stampData?.photo_url ? (
+                        <img src={stampData.photo_url} alt="" className="w-full h-full object-cover" />
                       ) : stamped ? (
                         <span className="text-green text-[16px]">✓</span>
                       ) : (
@@ -156,14 +156,14 @@ export default function PassportSection() {
                         )}
                       </div>
                       <p className="text-[11px] text-text-muted">
-                        {t.especialidad} · {t.ubicacion.ciudad} · {t.edad} anos
+                        {t.especialidad} · {t.ubicacion.ciudad}{t.edad > 0 ? ` · ${t.edad} anos` : ""}
                       </p>
                     </div>
 
                     {/* Region + status */}
                     <div className="text-right shrink-0">
                       <span className={`text-[9px] font-bold tracking-[1px] uppercase px-2 py-0.5 rounded-full ${
-                        t.region === "cdmx" ? "bg-[#CC000008] text-red" :
+                        t.region === "cdmx" ? "bg-[#0077C808] text-red" :
                         t.region === "gdl" ? "bg-[#00684708] text-green" :
                         "bg-[#C4A26508] text-gold"
                       }`}>

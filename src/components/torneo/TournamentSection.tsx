@@ -73,7 +73,7 @@ export default function TournamentSection() {
         {/* Voting multiplier */}
         <AnimateOnScroll delay={0.4}>
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-3 bg-[#CC000006] py-2.5 px-5 rounded-full">
+            <div className="inline-flex items-center gap-3 bg-[#0077C806] py-2.5 px-5 rounded-full">
               <span className="text-[11px] text-text-body">
                 Vota en <span className="font-bold text-text">Instagram</span> o en la <span className="font-bold text-red">webapp &times;3</span>
               </span>
@@ -110,7 +110,7 @@ export default function TournamentSection() {
 
         {/* Bottom quote */}
         <AnimateOnScroll>
-          <div className="max-w-[680px] mx-auto mt-8 bg-[#CC000006] border-l-[3px] border-red rounded-r-[6px] py-3.5 px-4">
+          <div className="max-w-[680px] mx-auto mt-8 bg-[#0077C806] border-l-[3px] border-red rounded-r-[6px] py-3.5 px-4">
             <p className="text-[14px] text-text-body leading-relaxed">
               &ldquo;Solo una taqueria puede ser la seleccion de Mexico.&rdquo;
             </p>

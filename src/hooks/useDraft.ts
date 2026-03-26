@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 const STORAGE_KEY = "lsdt_draft";
-const MAX_PICKS = 5;
+const MAX_PICKS = 3;
 
 export function useDraft() {
   const [picks, setPicks] = useState<string[]>([]);

@@ -55,7 +55,7 @@ export default function StampModal({
         {step === "instructions" && (
           <>
             <div className="text-center mb-6">
-              <div className="w-16 h-16 rounded-full bg-[#CC000006] mx-auto mb-4 flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-[#0077C806] mx-auto mb-4 flex items-center justify-center">
                 <span className="text-[28px]">📸</span>
               </div>
               <h3 className="text-[20px] font-light text-text tracking-[-0.02em] mb-2">
@@ -91,7 +91,7 @@ export default function StampModal({
             </div>
 
             {/* Reminder tags */}
-            <div className="bg-[#CC000006] rounded-[8px] py-3 px-4 mb-6">
+            <div className="bg-[#0077C806] rounded-[8px] py-3 px-4 mb-6">
               <p className="text-[11px] text-text-body text-center">
                 Etiqueta a <span className="font-bold text-red">@tacotios</span> + <span className="font-bold text-red">@telcel</span> en tu Story
               </p>
@@ -181,7 +181,7 @@ export default function StampModal({
 
         {step === "confirmed" && (
           <div className="text-center py-4">
-            <div className="w-20 h-20 rounded-full bg-[#CC000006] mx-auto mb-5 flex items-center justify-center">
+            <div className="w-20 h-20 rounded-full bg-[#0077C806] mx-auto mb-5 flex items-center justify-center">
               <span className="text-[40px]">✅</span>
             </div>
             <h3 className="text-[22px] font-light text-text tracking-[-0.02em] mb-2">

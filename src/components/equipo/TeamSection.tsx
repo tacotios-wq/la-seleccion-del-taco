@@ -63,7 +63,7 @@ export default function TeamSection() {
 
         {/* Quote */}
         <AnimateOnScroll>
-          <div className="bg-[#CC000006] border-l-[3px] border-red rounded-r-[6px] py-3.5 px-4 max-w-[600px] mx-auto">
+          <div className="bg-[#0077C806] border-l-[3px] border-red rounded-r-[6px] py-3.5 px-4 max-w-[600px] mx-auto">
             <p className="text-[14px] text-text-body leading-relaxed">
               &ldquo;La primera plataforma que documenta y gamifica la gastronomia mexicana con el rigor de quienes han dedicado su vida a ella.&rdquo;
             </p>
