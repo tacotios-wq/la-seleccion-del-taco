@@ -1,0 +1,17 @@
+[
+  { "id": "octavos-1", "ronda": "octavos", "taqueria1_id": "tacos-charly", "taqueria2_id": "el-vilsito", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "octavos-2", "ronda": "octavos", "taqueria1_id": "el-gran-abanico", "taqueria2_id": "fonda-margarita", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "octavos-3", "ronda": "octavos", "taqueria1_id": "los-3-reyes", "taqueria2_id": "voto-comunidad-cdmx", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "octavos-4", "ronda": "octavos", "taqueria1_id": "tacos-mundo", "taqueria2_id": "fonda-dona-mica", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "octavos-5", "ronda": "octavos", "taqueria1_id": "birrieria-chololo", "taqueria2_id": "tripitas-don-ramon", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "octavos-6", "ronda": "octavos", "taqueria1_id": "tacos-don-jose", "taqueria2_id": "voto-comunidad-gdl", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "octavos-7", "ronda": "octavos", "taqueria1_id": "dona-mary-la-gritona", "taqueria2_id": "taqueria-orinoco", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "octavos-8", "ronda": "octavos", "taqueria1_id": "tacos-atarantados", "taqueria2_id": "tacos-primo", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "cuartos-1", "ronda": "cuartos", "taqueria1_id": "", "taqueria2_id": "", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "cuartos-2", "ronda": "cuartos", "taqueria1_id": "", "taqueria2_id": "", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "cuartos-3", "ronda": "cuartos", "taqueria1_id": "", "taqueria2_id": "", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "cuartos-4", "ronda": "cuartos", "taqueria1_id": "", "taqueria2_id": "", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "semis-1", "ronda": "semis", "taqueria1_id": "", "taqueria2_id": "", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "semis-2", "ronda": "semis", "taqueria1_id": "", "taqueria2_id": "", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" },
+  { "id": "final-1", "ronda": "final", "taqueria1_id": "", "taqueria2_id": "", "votos1": 0, "votos2": 0, "estado": "proximo", "fecha_inicio": "", "fecha_fin": "" }
+]
