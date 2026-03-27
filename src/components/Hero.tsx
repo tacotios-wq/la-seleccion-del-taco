@@ -17,22 +17,17 @@ export default function Hero() {
           El sabor de M&eacute;xico llega donde est&eacute;s.
         </p>
 
-        {/* Sub */}
-        <p className="text-[13px] font-normal text-text-muted max-w-[400px] mx-auto mb-10 leading-relaxed">
-          Vota por tu favorita
-        </p>
-
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+        <div className="flex flex-col items-center gap-4">
           <a
-            href="#torneo"
-            className="inline-flex items-center gap-2 bg-blue text-white font-semibold text-[10px] tracking-[1px] uppercase px-7 py-3.5 rounded-full transition-all duration-300 hover:bg-blue/90 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,119,200,0.2)]"
+            href="/taquerias"
+            className="inline-flex items-center gap-2 bg-blue text-white font-semibold text-[10px] tracking-[1px] uppercase px-8 py-4 rounded-full transition-all duration-300 hover:bg-blue/90 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,119,200,0.2)]"
           >
-            Vota ahora
+            Vota por tu favorita
           </a>
           <a
             href="#torneo"
-            className="inline-flex items-center gap-2 border border-border-strong text-text font-semibold text-[10px] tracking-[1px] uppercase px-7 py-3.5 rounded-full transition-all duration-300 hover:border-text/30 hover:-translate-y-0.5"
+            className="text-[12px] font-medium text-text-muted tracking-wide hover:text-text transition-colors"
           >
             Ver clasificaci&oacute;n
           </a>

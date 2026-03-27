@@ -2,9 +2,6 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Manifesto from "@/components/Manifesto";
 import TournamentSection from "@/components/torneo/TournamentSection";
-import DraftSection from "@/components/draft/DraftSection";
-import PassportSection from "@/components/pasaporte/PassportSection";
-import TaqueriaList from "@/components/TaqueriaList";
 import TeamSection from "@/components/equipo/TeamSection";
 import SignupSection from "@/components/SignupSection";
 
@@ -29,23 +26,8 @@ export default function Home() {
 
         <Divider />
 
-        {/* EL TORNEO */}
+        {/* EL TORNEO — bracket */}
         <TournamentSection />
-
-        <Divider />
-
-        {/* LA QUINIELA */}
-        <DraftSection />
-
-        <Divider />
-
-        {/* PASAPORTE */}
-        <PassportSection />
-
-        <Divider />
-
-        {/* Las taquerias seleccionadas */}
-        <TaqueriaList />
 
         <Divider />
 
@@ -59,10 +41,10 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 px-6 text-center border-t border-border">
         <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-2">
-          La Seleccion del Taco
+          La Selecci&oacute;n del Taco
         </p>
         <p className="text-[11px] text-text-muted/60 mb-0.5">
-          &copy; 2026 La Seleccion del Taco. Una iniciativa de @tacotios.
+          &copy; 2026 La Selecci&oacute;n del Taco. Una iniciativa de @tacotios.
         </p>
         <div className="flex justify-center gap-6 mt-4">
           {["Instagram", "TikTok", "YouTube"].map((name) => (

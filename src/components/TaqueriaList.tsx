@@ -7,18 +7,6 @@ export default function TaqueriaList() {
   return (
     <section id="taquerias" className="py-24 px-6">
       <div className="max-w-[680px] mx-auto">
-        <div className="text-center mb-14">
-          <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-5">
-            Las seleccionadas
-          </p>
-          <h2 className="text-[clamp(34px,5vw,48px)] font-light tracking-[-0.02em] mb-4 text-text">
-            Las taquer&iacute;as
-          </h2>
-          <p className="text-text-body max-w-[500px] mx-auto text-[14px] leading-relaxed">
-            16 taquer&iacute;as seleccionadas. Una a una. Sin filtros ni favores.
-          </p>
-        </div>
-
         <div className="flex flex-col gap-5">
           {taquerias.map((t, i) => (
             <AnimateOnScroll key={t.id} delay={i * 0.05}>
