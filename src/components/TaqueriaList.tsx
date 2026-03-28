@@ -14,7 +14,7 @@ export default function TaqueriaList() {
                 <div className="p-6 sm:p-8">
                   {/* Number + Name */}
                   <div className="flex items-start gap-4 mb-3">
-                    <span className="text-[44px] font-bold text-red leading-none shrink-0">
+                    <span className="text-[44px] font-bold text-blue leading-none shrink-0">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="pt-1">
@@ -28,7 +28,7 @@ export default function TaqueriaList() {
                   </div>
 
                   {/* Quote */}
-                  <div className="bg-[#0077C806] border-l-[3px] border-red rounded-r-[6px] py-3.5 px-4 my-5">
+                  <div className="bg-[#0077C806] border-l-[3px] border-blue rounded-r-[6px] py-3.5 px-4 my-5">
                     <p className="text-[13px] text-text-body leading-relaxed">
                       {t.historia.length > 200 ? t.historia.slice(0, 200) + "..." : t.historia}
                     </p>
@@ -49,15 +49,15 @@ export default function TaqueriaList() {
                   {/* Tips row */}
                   <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[12px] text-text-muted mb-5">
                     <span className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red inline-block" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue inline-block" />
                       {t.precioRango}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red inline-block" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue inline-block" />
                       {t.horario}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red inline-block" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue inline-block" />
                       {t.ubicacion.ciudad}
                     </span>
                   </div>
@@ -68,7 +68,7 @@ export default function TaqueriaList() {
                       href={t.ubicacion.googleMapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 text-center py-3 text-[10px] font-bold tracking-[1px] uppercase bg-red text-white rounded-full hover:bg-red/90 transition-colors"
+                      className="flex-1 text-center py-3 text-[10px] font-bold tracking-[1px] uppercase bg-blue text-white rounded-full hover:bg-blue/90 transition-colors"
                     >
                       Ver en mapa
                     </a>

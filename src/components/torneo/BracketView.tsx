@@ -47,7 +47,7 @@ function BracketSlot({ matchup, compact = false }: { matchup: Matchup; compact?:
       {/* Team 2 */}
       <div className={`flex items-center justify-between px-3 ${compact ? "py-2" : "py-2.5"}`}>
         <div className="flex items-center gap-2 min-w-0 flex-1">
-          {isActive && <span className="w-1.5 h-1.5 rounded-full bg-red shrink-0" />}
+          {isActive && <span className="w-1.5 h-1.5 rounded-full bg-blue shrink-0" />}
           <span className={`truncate ${t2 ? "text-text font-medium" : "text-text-muted"}`}>
             {t2 ? t2.nombre : "Por definir"}
           </span>
@@ -60,9 +60,9 @@ function BracketSlot({ matchup, compact = false }: { matchup: Matchup; compact?:
         {total > 0 && (
           <div className="flex items-center gap-1.5 shrink-0 ml-2">
             <div className="w-10 h-1 bg-bg rounded-full overflow-hidden">
-              <div className="h-full bg-red rounded-full" style={{ width: `${pct2}%` }} />
+              <div className="h-full bg-blue rounded-full" style={{ width: `${pct2}%` }} />
             </div>
-            <span className={`font-bold tabular-nums ${matchup.votos2 >= matchup.votos1 ? "text-red" : "text-text-muted"}`}>
+            <span className={`font-bold tabular-nums ${matchup.votos2 >= matchup.votos1 ? "text-blue" : "text-text-muted"}`}>
               {pct2}%
             </span>
           </div>
@@ -75,7 +75,7 @@ function BracketSlot({ matchup, compact = false }: { matchup: Matchup; compact?:
 function RoundColumn({ title, matchups, compact = false }: { title: string; matchups: Matchup[]; compact?: boolean }) {
   return (
     <div className="flex flex-col gap-2 flex-1 min-w-[140px]">
-      <p className="text-[9px] font-bold tracking-[3px] uppercase text-red text-center mb-1">
+      <p className="text-[9px] font-bold tracking-[3px] uppercase text-blue text-center mb-1">
         {title}
       </p>
       <div className={`flex flex-col ${compact ? "gap-2" : "gap-3"} justify-around h-full`}>
@@ -128,7 +128,7 @@ export default function BracketView() {
       <div className="lg:hidden space-y-6">
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <p className="text-[10px] font-bold tracking-[4px] uppercase text-red">Octavos de final</p>
+            <p className="text-[10px] font-bold tracking-[4px] uppercase text-blue">Octavos de final</p>
             {hasActive && (
               <span className="flex items-center gap-1 text-[9px] font-bold text-green">
                 <span className="w-1.5 h-1.5 rounded-full bg-green animate-[pulse-live_2s_ease-in-out_infinite]" />

@@ -29,7 +29,7 @@ export default function SignupSection() {
       className="py-32 px-6 text-center"
     >
       <div className="max-w-[680px] mx-auto">
-        <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-5">
+        <p className="text-[10px] font-bold tracking-[4px] uppercase text-blue mb-5">
           No te lo pierdas
         </p>
         <h2 className="text-[clamp(34px,5vw,48px)] font-light tracking-[-0.02em] mb-4 text-text">
@@ -47,19 +47,19 @@ export default function SignupSection() {
             type="email"
             placeholder="tu@email.com"
             required
-            className="flex-1 py-3.5 px-5 text-[13px] bg-white border border-border-strong sm:border-r-0 text-text rounded-full sm:rounded-r-none outline-none transition-colors focus:border-red placeholder:text-text-muted/60"
+            className="flex-1 py-3.5 px-5 text-[13px] bg-white border border-border-strong sm:border-r-0 text-text rounded-full sm:rounded-r-none outline-none transition-colors focus:border-blue placeholder:text-text-muted/60"
           />
           <button
             type="submit"
             disabled={submitted}
-            className="py-3.5 px-7 text-[10px] font-bold tracking-[1px] uppercase bg-red text-white border border-red cursor-pointer transition-all hover:bg-red/90 whitespace-nowrap rounded-full sm:rounded-l-none disabled:opacity-60"
+            className="py-3.5 px-7 text-[10px] font-bold tracking-[1px] uppercase bg-blue text-white border border-blue cursor-pointer transition-all hover:bg-blue/90 whitespace-nowrap rounded-full sm:rounded-l-none disabled:opacity-60"
           >
             {submitted ? "Listo" : "Avisame"}
           </button>
         </form>
 
         {submitted && (
-          <p className="mt-6 text-red font-medium text-[13px]">
+          <p className="mt-6 text-blue font-medium text-[13px]">
             Ya estas dentro. Te avisamos cuando arranque la votacion.
           </p>
         )}

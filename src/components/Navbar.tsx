@@ -30,7 +30,7 @@ export default function Navbar() {
         {/* Brand */}
         <a
           href="/"
-          className="text-[11px] font-bold tracking-[4px] uppercase text-text hover:text-red transition-colors"
+          className="text-[11px] font-bold tracking-[4px] uppercase text-text hover:text-blue transition-colors"
         >
           LA SELECCI&Oacute;N
         </a>
@@ -48,7 +48,7 @@ export default function Navbar() {
           ))}
           <a
             href="/taquerias"
-            className="text-[10px] font-semibold tracking-[1px] uppercase bg-red text-white px-3 py-1.5 rounded-full hover:bg-red/90 transition-colors"
+            className="text-[10px] font-semibold tracking-[1px] uppercase bg-blue text-white px-3 py-1.5 rounded-full hover:bg-blue/90 transition-colors"
           >
             Votar
           </a>
@@ -98,7 +98,7 @@ export default function Navbar() {
           <a
             href="/taquerias"
             onClick={() => setMenuOpen(false)}
-            className="text-[11px] font-semibold tracking-[1px] uppercase text-red"
+            className="text-[11px] font-semibold tracking-[1px] uppercase text-blue"
           >
             Votar
           </a>

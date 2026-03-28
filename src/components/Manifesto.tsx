@@ -10,7 +10,7 @@ export default function Manifesto() {
       </AnimateOnScroll>
       <AnimateOnScroll delay={0.1}>
         <p className="text-[clamp(16px,2.5vw,20px)] leading-[1.8] mb-8 text-text-body font-light">
-          Pero nadie hab&iacute;a hecho esto: <span className="text-red">reunir a las mejores en un torneo donde M&eacute;xico decide.</span> No un ranking de cr&iacute;ticos. No una lista de un peri&oacute;dico. Un voto popular, respaldado por las autoridades gastron&oacute;micas m&aacute;s importantes del pa&iacute;s.
+          Pero nadie hab&iacute;a hecho esto: <span className="text-blue">reunir a las mejores en un torneo donde M&eacute;xico decide.</span> No un ranking de cr&iacute;ticos. No una lista de un peri&oacute;dico. Un voto popular, respaldado por las autoridades gastron&oacute;micas m&aacute;s importantes del pa&iacute;s.
         </p>
       </AnimateOnScroll>
       <AnimateOnScroll delay={0.2}>

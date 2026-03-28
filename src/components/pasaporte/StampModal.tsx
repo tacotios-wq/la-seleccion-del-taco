@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Taqueria } from "@/types";
+import { supabase } from "@/lib/supabase";
 
 type Step = "instructions" | "upload" | "confirmed";
 
@@ -16,10 +17,13 @@ export default function StampModal({
 }) {
   const [step, setStep] = useState<Step>("instructions");
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    setPhotoFile(file);
     const reader = new FileReader();
     reader.onload = (ev) => {
       setPhotoPreview(ev.target?.result as string);
@@ -27,10 +31,32 @@ export default function StampModal({
     reader.readAsDataURL(file);
   }
 
-  function handleConfirm() {
-    if (photoPreview) {
+  async function handleConfirm() {
+    if (!photoFile || !photoPreview) return;
+    setUploading(true);
+
+    try {
+      // Upload to Supabase Storage
+      const ext = photoFile.name.split(".").pop() || "jpg";
+      const fileName = `${taqueria.id}-${Date.now()}.${ext}`;
+      const { error } = await supabase.storage
+        .from("stamps")
+        .upload(fileName, photoFile, { upsert: true });
+
+      if (error) {
+        // Fallback to base64 if Storage not configured yet
+        onStamp(photoPreview);
+      } else {
+        const { data: urlData } = supabase.storage.from("stamps").getPublicUrl(fileName);
+        onStamp(urlData.publicUrl);
+      }
+      setStep("confirmed");
+    } catch {
+      // Fallback
       onStamp(photoPreview);
       setStep("confirmed");
+    } finally {
+      setUploading(false);
     }
   }
 
@@ -68,21 +94,21 @@ export default function StampModal({
 
             <div className="space-y-4 mb-6">
               <div className="flex gap-3">
-                <div className="w-7 h-7 rounded-full bg-red text-white flex items-center justify-center text-[11px] font-bold shrink-0">1</div>
+                <div className="w-7 h-7 rounded-full bg-blue text-white flex items-center justify-center text-[11px] font-bold shrink-0">1</div>
                 <div>
                   <p className="text-[13px] font-semibold text-text">Visita la taqueria</p>
                   <p className="text-[12px] text-text-muted">Ve a {taqueria.nombre} y prueba sus tacos</p>
                 </div>
               </div>
               <div className="flex gap-3">
-                <div className="w-7 h-7 rounded-full bg-red text-white flex items-center justify-center text-[11px] font-bold shrink-0">2</div>
+                <div className="w-7 h-7 rounded-full bg-blue text-white flex items-center justify-center text-[11px] font-bold shrink-0">2</div>
                 <div>
                   <p className="text-[13px] font-semibold text-text">Sube una Story</p>
-                  <p className="text-[12px] text-text-muted">Publica una foto en Instagram Stories etiquetando a <span className="font-semibold text-red">@tacotios</span> y <span className="font-semibold text-red">@telcel</span></p>
+                  <p className="text-[12px] text-text-muted">Publica una foto en Instagram Stories etiquetando a <span className="font-semibold text-blue">@tacotios</span> y <span className="font-semibold text-blue">@telcel</span></p>
                 </div>
               </div>
               <div className="flex gap-3">
-                <div className="w-7 h-7 rounded-full bg-red text-white flex items-center justify-center text-[11px] font-bold shrink-0">3</div>
+                <div className="w-7 h-7 rounded-full bg-blue text-white flex items-center justify-center text-[11px] font-bold shrink-0">3</div>
                 <div>
                   <p className="text-[13px] font-semibold text-text">Sube la captura</p>
                   <p className="text-[12px] text-text-muted">Toma screenshot de tu Story y subela aqui para verificar</p>
@@ -93,13 +119,13 @@ export default function StampModal({
             {/* Reminder tags */}
             <div className="bg-[#0077C806] rounded-[8px] py-3 px-4 mb-6">
               <p className="text-[11px] text-text-body text-center">
-                Etiqueta a <span className="font-bold text-red">@tacotios</span> + <span className="font-bold text-red">@telcel</span> en tu Story
+                Etiqueta a <span className="font-bold text-blue">@tacotios</span> + <span className="font-bold text-blue">@telcel</span> en tu Story
               </p>
             </div>
 
             <button
               onClick={() => setStep("upload")}
-              className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-red text-white rounded-full hover:bg-red/90 transition-colors"
+              className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-blue text-white rounded-full hover:bg-blue/90 transition-colors"
             >
               Ya subi mi Story
             </button>
@@ -131,7 +157,7 @@ export default function StampModal({
                   </div>
                 </div>
               ) : (
-                <div className="border-2 border-dashed border-border-strong rounded-[8px] py-12 flex flex-col items-center gap-2 hover:border-red/30 transition-colors">
+                <div className="border-2 border-dashed border-border-strong rounded-[8px] py-12 flex flex-col items-center gap-2 hover:border-blue/30 transition-colors">
                   <span className="text-[32px]">📷</span>
                   <p className="text-[12px] text-text-muted font-medium">
                     Toca para subir tu screenshot
@@ -152,29 +178,29 @@ export default function StampModal({
             {/* Verification checklist */}
             <div className="space-y-2 mb-5">
               <div className="flex items-center gap-2 text-[12px] text-text-muted">
-                <span className="w-1.5 h-1.5 rounded-full bg-red" />
+                <span className="w-1.5 h-1.5 rounded-full bg-blue" />
                 Se ve el nombre de la taqueria
               </div>
               <div className="flex items-center gap-2 text-[12px] text-text-muted">
-                <span className="w-1.5 h-1.5 rounded-full bg-red" />
+                <span className="w-1.5 h-1.5 rounded-full bg-blue" />
                 Etiqueta @tacotios visible
               </div>
               <div className="flex items-center gap-2 text-[12px] text-text-muted">
-                <span className="w-1.5 h-1.5 rounded-full bg-red" />
+                <span className="w-1.5 h-1.5 rounded-full bg-blue" />
                 Etiqueta @telcel visible
               </div>
             </div>
 
             <button
               onClick={handleConfirm}
-              disabled={!photoPreview}
+              disabled={!photoPreview || uploading}
               className={`w-full py-3 text-[10px] font-bold tracking-[1px] uppercase rounded-full transition-colors ${
-                photoPreview
-                  ? "bg-red text-white hover:bg-red/90"
+                photoPreview && !uploading
+                  ? "bg-blue text-white hover:bg-blue/90"
                   : "bg-bg text-text-muted cursor-not-allowed"
               }`}
             >
-              Verificar y sellar
+              {uploading ? "Subiendo foto..." : "Verificar y sellar"}
             </button>
           </>
         )}
@@ -195,7 +221,7 @@ export default function StampModal({
             </p>
             <button
               onClick={onClose}
-              className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-red text-white rounded-full hover:bg-red/90 transition-colors"
+              className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-blue text-white rounded-full hover:bg-blue/90 transition-colors"
             >
               Continuar
             </button>

@@ -25,13 +25,13 @@ export default function DraftSection() {
         {/* Header */}
         <div className="text-center mb-14">
           <AnimateOnScroll>
-            <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-5">
+            <p className="text-[10px] font-bold tracking-[4px] uppercase text-blue mb-5">
               La Quiniela
             </p>
           </AnimateOnScroll>
           <AnimateOnScroll delay={0.1}>
             <h2 className="text-[clamp(34px,5vw,48px)] font-light tracking-[-0.02em] mb-4 text-text">
-              Arma tu <span className="text-red">selecci&oacute;n</span>
+              Arma tu <span className="text-blue">selecci&oacute;n</span>
             </h2>
           </AnimateOnScroll>
           <AnimateOnScroll delay={0.2}>
@@ -48,7 +48,7 @@ export default function DraftSection() {
               <p className="text-[10px] font-bold tracking-[4px] uppercase text-text-muted">
                 Mi selecci&oacute;n
               </p>
-              <p className="text-[13px] font-bold text-red">
+              <p className="text-[13px] font-bold text-blue">
                 {count}<span className="text-text-muted font-normal">/{max}</span>
               </p>
             </div>
@@ -62,7 +62,7 @@ export default function DraftSection() {
                     key={i}
                     className={`aspect-square rounded-[8px] flex flex-col items-center justify-center text-center p-2 transition-all duration-300 ${
                       pick
-                        ? "bg-[#0077C806] border-2 border-red/20"
+                        ? "bg-[#0077C806] border-2 border-blue/20"
                         : "bg-bg border-2 border-dashed border-border-strong"
                     }`}
                   >
@@ -90,14 +90,14 @@ export default function DraftSection() {
             {/* Progress bar */}
             <div className="h-1 bg-bg rounded-full overflow-hidden mb-4">
               <div
-                className="h-full bg-red rounded-full transition-all duration-500"
+                className="h-full bg-blue rounded-full transition-all duration-500"
                 style={{ width: `${(count / max) * 100}%` }}
               />
             </div>
 
             {/* Share button */}
             {count === max ? (
-              <button className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-red text-white rounded-full hover:bg-red/90 transition-colors">
+              <button className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-blue text-white rounded-full hover:bg-blue/90 transition-colors">
                 Compartir mi quiniela
               </button>
             ) : (
@@ -137,7 +137,7 @@ export default function DraftSection() {
                     {/* Check / number */}
                     <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-[11px] font-bold ${
                       picked
-                        ? "bg-red text-white"
+                        ? "bg-blue text-white"
                         : "bg-bg text-text-muted"
                     }`}>
                       {picked ? "✓" : String(i + 1).padStart(2, "0")}
@@ -160,7 +160,7 @@ export default function DraftSection() {
                     {/* Region badge */}
                     <span className={`text-[9px] font-bold tracking-[1px] uppercase px-2 py-0.5 rounded-full shrink-0 ${
                       t.region === "cdmx"
-                        ? "bg-[#0077C808] text-red"
+                        ? "bg-[#0077C808] text-blue"
                         : t.region === "gdl"
                         ? "bg-[#00684708] text-green"
                         : "bg-[#C4A26508] text-gold"

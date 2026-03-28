@@ -8,7 +8,7 @@ import SignupSection from "@/components/SignupSection";
 function Divider() {
   return (
     <div className="flex justify-center py-4">
-      <div className="w-[30px] h-[2px] bg-red rounded-full" />
+      <div className="w-[30px] h-[2px] bg-blue rounded-full" />
     </div>
   );
 }
@@ -40,7 +40,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-12 px-6 text-center border-t border-border">
-        <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-2">
+        <p className="text-[10px] font-bold tracking-[4px] uppercase text-blue mb-2">
           La Selecci&oacute;n del Taco
         </p>
         <p className="text-[11px] text-text-muted/60 mb-0.5">
@@ -53,7 +53,7 @@ export default function Home() {
               href={`https://${name === "Instagram" ? "instagram.com" : name === "TikTok" ? "tiktok.com/@" : "youtube.com/@"}tacotios`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-text-muted text-[11px] font-medium hover:text-red transition-colors"
+              className="text-text-muted text-[11px] font-medium hover:text-blue transition-colors"
             >
               {name}
             </a>

@@ -20,7 +20,7 @@ export default function TournamentSection() {
         {/* Header — minimal */}
         <div className="text-center mb-16">
           <AnimateOnScroll>
-            <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-6">
+            <p className="text-[10px] font-bold tracking-[4px] uppercase text-blue mb-6">
               El Torneo
             </p>
           </AnimateOnScroll>
@@ -52,7 +52,7 @@ export default function TournamentSection() {
               { value: "3,370", label: "Votos" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-[clamp(22px,3.5vw,32px)] font-bold text-red leading-none">
+                <p className="text-[clamp(22px,3.5vw,32px)] font-bold text-blue leading-none">
                   {stat.value}
                 </p>
                 <p className="text-[10px] tracking-[2px] uppercase text-text-muted mt-1.5 font-medium">
@@ -80,7 +80,7 @@ export default function TournamentSection() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-3 bg-[#0077C806] py-2.5 px-5 rounded-full">
               <span className="text-[11px] text-text-body">
-                Vota en <span className="font-bold text-text">Instagram</span> o en la <span className="font-bold text-red">webapp &times;3</span>
+                Vota en <span className="font-bold text-text">Instagram</span> o en la <span className="font-bold text-blue">webapp &times;3</span>
               </span>
             </div>
           </div>
@@ -90,7 +90,7 @@ export default function TournamentSection() {
         {active && activeTaquerias && (
           <AnimateOnScroll delay={0.1}>
             <div className="max-w-[680px] mx-auto mb-16">
-              <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-4 text-center">
+              <p className="text-[10px] font-bold tracking-[4px] uppercase text-blue mb-4 text-center">
                 Enfrentamiento activo
               </p>
               <MatchupCard

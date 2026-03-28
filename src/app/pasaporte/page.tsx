@@ -13,7 +13,7 @@ export default function PasaportePage() {
       <main className="pt-20">
         {/* Hero mini */}
         <section className="py-16 px-6 text-center">
-          <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-4">
+          <p className="text-[10px] font-bold tracking-[4px] uppercase text-blue mb-4">
             Tu recorrido
           </p>
           <h1 className="text-[clamp(34px,6vw,52px)] font-light tracking-[-0.02em] mb-4 text-text">
@@ -30,7 +30,7 @@ export default function PasaportePage() {
 
       {/* Footer */}
       <footer className="py-12 px-6 text-center border-t border-border">
-        <a href="/" className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-2 block">
+        <a href="/" className="text-[10px] font-bold tracking-[4px] uppercase text-blue mb-2 block">
           La Selecci&oacute;n del Taco
         </a>
         <p className="text-[11px] text-text-muted/60">

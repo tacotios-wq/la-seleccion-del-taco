@@ -38,13 +38,13 @@ export default function PassportSection() {
           {/* Header */}
           <div className="text-center mb-14">
             <AnimateOnScroll>
-              <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-5">
+              <p className="text-[10px] font-bold tracking-[4px] uppercase text-blue mb-5">
                 Pasaporte Taquero
               </p>
             </AnimateOnScroll>
             <AnimateOnScroll delay={0.1}>
               <h2 className="text-[clamp(34px,5vw,48px)] font-light tracking-[-0.02em] mb-4 text-text">
-                Visita, sella, <span className="text-red">compite</span>
+                Visita, sella, <span className="text-blue">compite</span>
               </h2>
             </AnimateOnScroll>
             <AnimateOnScroll delay={0.2}>
@@ -64,7 +64,7 @@ export default function PassportSection() {
                     <p className="text-[11px] text-text-muted">{profile?.email || user?.email}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[28px] font-bold text-red leading-none">{stampCount}</p>
+                    <p className="text-[28px] font-bold text-blue leading-none">{stampCount}</p>
                     <p className="text-[10px] text-text-muted tracking-[1px] uppercase">sellos</p>
                   </div>
                 </div>
@@ -72,7 +72,7 @@ export default function PassportSection() {
                 {/* Progress */}
                 <div className="h-1.5 bg-bg rounded-full overflow-hidden mb-3">
                   <div
-                    className="h-full bg-red rounded-full transition-all duration-700"
+                    className="h-full bg-blue rounded-full transition-all duration-700"
                     style={{ width: `${(stampCount / 16) * 100}%` }}
                   />
                 </div>
@@ -82,7 +82,7 @@ export default function PassportSection() {
 
                 <button
                   onClick={logout}
-                  className="text-[10px] text-text-muted hover:text-red transition-colors mt-3 block mx-auto"
+                  className="text-[10px] text-text-muted hover:text-blue transition-colors mt-3 block mx-auto"
                 >
                   Cerrar sesion
                 </button>
@@ -100,7 +100,7 @@ export default function PassportSection() {
                 </p>
                 <button
                   onClick={() => setShowAuth(true)}
-                  className="py-3 px-8 text-[10px] font-bold tracking-[1px] uppercase bg-red text-white rounded-full hover:bg-red/90 transition-colors"
+                  className="py-3 px-8 text-[10px] font-bold tracking-[1px] uppercase bg-blue text-white rounded-full hover:bg-blue/90 transition-colors"
                 >
                   Crear mi pasaporte
                 </button>
@@ -163,7 +163,7 @@ export default function PassportSection() {
                     {/* Region + status */}
                     <div className="text-right shrink-0">
                       <span className={`text-[9px] font-bold tracking-[1px] uppercase px-2 py-0.5 rounded-full ${
-                        t.region === "cdmx" ? "bg-[#0077C808] text-red" :
+                        t.region === "cdmx" ? "bg-[#0077C808] text-blue" :
                         t.region === "gdl" ? "bg-[#00684708] text-green" :
                         "bg-[#C4A26508] text-gold"
                       }`}>

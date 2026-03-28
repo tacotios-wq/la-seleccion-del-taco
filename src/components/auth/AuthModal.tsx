@@ -73,7 +73,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
         </button>
 
         <div className="text-center mb-6">
-          <p className="text-[10px] font-bold tracking-[4px] uppercase text-red mb-2">
+          <p className="text-[10px] font-bold tracking-[4px] uppercase text-blue mb-2">
             La Seleccion del Taco
           </p>
           <h3 className="text-[24px] font-light text-text tracking-[-0.02em]">
@@ -128,7 +128,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
                 placeholder="Tu nombre"
                 value={form.nombre}
                 onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                className="w-full py-2.5 px-3 text-[13px] bg-white border border-border-strong rounded-[6px] text-text outline-none focus:border-red transition-colors placeholder:text-text-muted/50"
+                className="w-full py-2.5 px-3 text-[13px] bg-white border border-border-strong rounded-[6px] text-text outline-none focus:border-blue transition-colors placeholder:text-text-muted/50"
               />
             </div>
           )}
@@ -142,7 +142,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
               placeholder="tu@email.com"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full py-2.5 px-3 text-[13px] bg-white border border-border-strong rounded-[6px] text-text outline-none focus:border-red transition-colors placeholder:text-text-muted/50"
+              className="w-full py-2.5 px-3 text-[13px] bg-white border border-border-strong rounded-[6px] text-text outline-none focus:border-blue transition-colors placeholder:text-text-muted/50"
             />
           </div>
 
@@ -156,7 +156,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
                 placeholder="+52 55 1234 5678"
                 value={form.telefono}
                 onChange={(e) => setForm({ ...form, telefono: e.target.value })}
-                className="w-full py-2.5 px-3 text-[13px] bg-white border border-border-strong rounded-[6px] text-text outline-none focus:border-red transition-colors placeholder:text-text-muted/50"
+                className="w-full py-2.5 px-3 text-[13px] bg-white border border-border-strong rounded-[6px] text-text outline-none focus:border-blue transition-colors placeholder:text-text-muted/50"
               />
             </div>
           )}
@@ -170,18 +170,18 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
               placeholder="Minimo 6 caracteres"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full py-2.5 px-3 text-[13px] bg-white border border-border-strong rounded-[6px] text-text outline-none focus:border-red transition-colors placeholder:text-text-muted/50"
+              className="w-full py-2.5 px-3 text-[13px] bg-white border border-border-strong rounded-[6px] text-text outline-none focus:border-blue transition-colors placeholder:text-text-muted/50"
             />
           </div>
 
           {error && (
-            <p className="text-[12px] text-red">{error}</p>
+            <p className="text-[12px] text-blue">{error}</p>
           )}
 
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-red text-white rounded-full hover:bg-red/90 transition-colors mt-2 disabled:opacity-60"
+            className="w-full py-3 text-[10px] font-bold tracking-[1px] uppercase bg-blue text-white rounded-full hover:bg-blue/90 transition-colors mt-2 disabled:opacity-60"
           >
             {submitting ? "Procesando..." : mode === "register" ? "Crear cuenta" : "Entrar"}
           </button>
@@ -191,7 +191,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
           {mode === "register" ? "Ya tienes cuenta?" : "No tienes cuenta?"}{" "}
           <button
             onClick={() => { setMode(mode === "register" ? "login" : "register"); setError(""); }}
-            className="text-red font-semibold hover:underline"
+            className="text-blue font-semibold hover:underline"
           >
             {mode === "register" ? "Inicia sesion" : "Registrate"}
           </button>

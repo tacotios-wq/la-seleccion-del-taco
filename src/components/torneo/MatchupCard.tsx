@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import type { Matchup, Taqueria } from "@/types";
-import { getVotoPorcentaje, getTotalVotos } from "@/lib/data";
 import { useVotes } from "@/hooks/useVotes";
 import VoteConfetti from "./VoteConfetti";
 
@@ -28,7 +27,7 @@ function TaqueriaSlot({
   disabled: boolean;
   pct: number;
 }) {
-  const votedBg = side === "left" ? "bg-green" : "bg-red";
+  const votedBg = side === "left" ? "bg-green" : "bg-blue";
 
   return (
     <div className="flex flex-col items-center text-center gap-4 flex-1 min-w-0">
@@ -52,7 +51,7 @@ function TaqueriaSlot({
 
       {/* Tags */}
       <div className="flex flex-wrap justify-center gap-1.5">
-        <span className="bg-bg text-red py-1 px-3 text-[11px] font-medium rounded-full">
+        <span className="bg-bg text-blue py-1 px-3 text-[11px] font-medium rounded-full">
           {taqueria.especialidad}
         </span>
         <span className="bg-bg text-text-muted py-1 px-3 text-[11px] font-medium rounded-full">
@@ -82,24 +81,22 @@ function TaqueriaSlot({
 }
 
 export default function MatchupCard({ matchup, taqueria1, taqueria2, featured = false }: Props) {
-  const { vote, hasVoted, getVote } = useVotes();
+  const { vote, hasVoted, getVote, getMatchupCounts } = useVotes();
   const [showConfetti, setShowConfetti] = useState(false);
-  const [localMatchup, setLocalMatchup] = useState(matchup);
 
-  const { pct1, pct2 } = getVotoPorcentaje(localMatchup);
-  const total = getTotalVotos(localMatchup);
+  const { votes1, votes2, total, pct1, pct2 } = getMatchupCounts(matchup.id, taqueria1.id, taqueria2.id);
   const voted = hasVoted(matchup.id);
   const votedFor = getVote(matchup.id);
 
-  const handleVote = (taqueriaId: string, side: 1 | 2) => {
+  // Use JSON votos as seed when no Supabase votes exist yet
+  const displayTotal = total > 0 ? total : matchup.votos1 + matchup.votos2;
+  const displayPct1 = total > 0 ? pct1 : (matchup.votos1 + matchup.votos2 > 0 ? Math.round((matchup.votos1 / (matchup.votos1 + matchup.votos2)) * 100) : 50);
+  const displayPct2 = total > 0 ? pct2 : (matchup.votos1 + matchup.votos2 > 0 ? Math.round((matchup.votos2 / (matchup.votos1 + matchup.votos2)) * 100) : 50);
+
+  const handleVote = (taqueriaId: string) => {
     if (voted) return;
     vote(matchup.id, taqueriaId);
     setShowConfetti(true);
-    setLocalMatchup((prev) => ({
-      ...prev,
-      votos1: side === 1 ? prev.votos1 + 1 : prev.votos1,
-      votos2: side === 2 ? prev.votos2 + 1 : prev.votos2,
-    }));
     setTimeout(() => setShowConfetti(false), 2000);
   };
 
@@ -124,8 +121,8 @@ export default function MatchupCard({ matchup, taqueria1, taqueria2, featured = 
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v5l3 1.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/><circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/></svg>
             Cierra {matchup.fecha_fin}
           </span>
-          <span className="text-[11px] text-red font-semibold">
-            {total.toLocaleString()} votos
+          <span className="text-[11px] text-blue font-semibold">
+            {displayTotal.toLocaleString()} votos
           </span>
         </div>
       </div>
@@ -133,7 +130,7 @@ export default function MatchupCard({ matchup, taqueria1, taqueria2, featured = 
       {/* Ronda badge */}
       {featured && (
         <div className="text-center mb-6">
-          <span className="inline-block bg-[#0077C806] text-red text-[10px] font-bold tracking-[4px] uppercase py-2 px-5 rounded-full">
+          <span className="inline-block bg-[#0077C806] text-blue text-[10px] font-bold tracking-[4px] uppercase py-2 px-5 rounded-full">
             {matchup.ronda === "octavos" && "Octavos de final"}
             {matchup.ronda === "cuartos" && "Cuartos de final"}
             {matchup.ronda === "semis" && "Semifinal"}
@@ -148,15 +145,15 @@ export default function MatchupCard({ matchup, taqueria1, taqueria2, featured = 
           taqueria={taqueria1}
           side="left"
           isVoted={votedFor === taqueria1.id}
-          onVote={() => handleVote(taqueria1.id, 1)}
+          onVote={() => handleVote(taqueria1.id)}
           disabled={voted}
-          pct={pct1}
+          pct={displayPct1}
         />
 
         {/* VS center */}
         <div className="flex flex-col items-center justify-center pt-12 sm:pt-16 shrink-0 gap-2">
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-border-strong flex items-center justify-center bg-bg">
-            <span className="text-[14px] sm:text-[16px] font-bold text-red tracking-wide">
+            <span className="text-[14px] sm:text-[16px] font-bold text-blue tracking-wide">
               VS
             </span>
           </div>
@@ -166,9 +163,9 @@ export default function MatchupCard({ matchup, taqueria1, taqueria2, featured = 
           taqueria={taqueria2}
           side="right"
           isVoted={votedFor === taqueria2.id}
-          onVote={() => handleVote(taqueria2.id, 2)}
+          onVote={() => handleVote(taqueria2.id)}
           disabled={voted}
-          pct={pct2}
+          pct={displayPct2}
         />
       </div>
 
@@ -176,24 +173,24 @@ export default function MatchupCard({ matchup, taqueria1, taqueria2, featured = 
       <div className="mt-8 space-y-2">
         <div className="flex justify-between text-[13px] font-bold">
           <span className={votedFor === taqueria1.id ? "text-green" : "text-text/40"}>
-            {pct1}%
+            {displayPct1}%
           </span>
           <span className="text-[10px] tracking-[1px] uppercase text-text-muted self-center font-medium">
-            {total.toLocaleString()} votos
+            {displayTotal.toLocaleString()} votos
           </span>
-          <span className={votedFor === taqueria2.id ? "text-red" : "text-text/40"}>
-            {pct2}%
+          <span className={votedFor === taqueria2.id ? "text-blue" : "text-text/40"}>
+            {displayPct2}%
           </span>
         </div>
         <div className="h-2 bg-bg rounded-full overflow-hidden flex">
           <div
             className="bg-green transition-all duration-1000 ease-out rounded-l-full"
-            style={{ width: `${pct1}%` }}
+            style={{ width: `${displayPct1}%` }}
           />
           <div className="w-px bg-white shrink-0" />
           <div
-            className="bg-red transition-all duration-1000 ease-out rounded-r-full"
-            style={{ width: `${pct2}%` }}
+            className="bg-blue transition-all duration-1000 ease-out rounded-r-full"
+            style={{ width: `${displayPct2}%` }}
           />
         </div>
       </div>
@@ -201,7 +198,7 @@ export default function MatchupCard({ matchup, taqueria1, taqueria2, featured = 
       {/* Share CTA */}
       {voted && (
         <div className="mt-6 text-center">
-          <button className="text-[11px] text-text-muted hover:text-red transition-colors tracking-[1px] uppercase font-medium flex items-center gap-2 mx-auto">
+          <button className="text-[11px] text-text-muted hover:text-blue transition-colors tracking-[1px] uppercase font-medium flex items-center gap-2 mx-auto">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4.5 8L9.5 5.5M4.5 6L9.5 8.5M10 4.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM4 8.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM10 12.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="currentColor" strokeWidth="1"/></svg>
             Comparte tu voto
           </button>
